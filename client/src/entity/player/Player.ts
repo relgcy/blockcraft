@@ -1320,17 +1320,35 @@ class Player {
   updatePlayerMesh() {
     this.punching = player.punchT < 2;
     this.blocking = player.isBlocking > 0;
+    
+    // Calculate whether the player is walking based on velocity
     this.walking = new THREE.Vector3(player.velocity.x, 0, player.velocity.z).length() > 2;
+    
+    // Check if the 'alt' key is pressed for sneaking
     this.sneaking = keyPressedPlayer("alt");
-    this.rot = this.controls.getObject().rotation.toVector3();
+  
+    // Convert rotation to a quaternion and apply it to get the direction
+    this.rot = new THREE.Vector3(0, 0, 1).applyQuaternion(this.controls.getObject().quaternion);
+  
+    // Get the direction the camera is facing
     camera.getWorldDirection(this.dir);
-    if (this.perspective == 2) this.dir.y *= -1;
+    
+    // Adjust for third-person perspective if needed
+    if (this.perspective == 2) {
+      this.dir.y *= -1;
+    }
+  
+    // Update player velocity
     this.vel = this.newMove;
     this.localVel = this.velocity;
-
+  
+    // Early exit if in first-person view
     if (this.perspective == 0) return;
+  
+    // Update player data through PlayerManager
     PlayerManager.updatePlayer(this);
   }
+  
 
   update(delta) {
     if (this.hp <= 0 || !g.initialized || !g.joined || !isState("inGame")) return;

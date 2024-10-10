@@ -15,18 +15,20 @@ module.exports = (env, argv) => {
     devServer: {
       compress: true,
       port: 3001,
-      proxy: {
-        "/socket.io": {
+      proxy: [
+        {
+          context: "/socket.io",
           target: "http://localhost:3002",
           ws: true,
         },
-      },
+      ],
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cross-Origin-Opener-Policy": "same-origin",
       },
     },
+    
     module: {
       rules: [
         {

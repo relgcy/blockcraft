@@ -94,9 +94,9 @@ class EntityManager {
         mat2.depthWrite = true;
 
         let arrow = new THREE.Group();
-        let arrow1 = new THREE.Mesh(new THREE.PlaneBufferGeometry(16, 5), mat);
-        let arrow2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(16, 5), mat);
-        let arrow3 = new THREE.Mesh(new THREE.PlaneBufferGeometry(5, 5), mat2);
+        let arrow1 = new THREE.Mesh(new THREE.PlaneGeometry(16, 5), mat);
+        let arrow2 = new THREE.Mesh(new THREE.PlaneGeometry(16, 5), mat);
+        let arrow3 = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), mat2);
 
         arrow1.rotation.y = -Math.PI / 2;
         arrow2.rotation.x = -Math.PI / 2;

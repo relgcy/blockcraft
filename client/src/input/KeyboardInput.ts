@@ -1,6 +1,6 @@
 import * as $ from "jquery";
 import Cookies from "js-cookie";
-import { bindKeys, keyMap, keyPressed } from "kontra";
+import { onKey, keyMap, keyPressed } from "kontra";
 import { giveCommandHint, nextCommand, prevCommand } from "../commands";
 import { camera, g } from "../globals";
 import hud from "../gui/HUD";
@@ -18,7 +18,7 @@ export function keyPressedPlayer(key) {
   return keyPressed(key) && player.controls.enabled && !chat.showChatBar && g.initialized;
 }
 
-bindKeys(
+onKey(
   "f",
   (event) => {
     if (event.repeat) return;
@@ -30,7 +30,7 @@ bindKeys(
   { preventDefault: false, handler: "keydown" }
 );
 
-bindKeys(
+onKey(
   "space",
   (event) => {
     if (event.repeat) return;
@@ -46,7 +46,7 @@ bindKeys(
 );
 
 // number keys for hotbar
-bindKeys(
+onKey(
   ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
   (e) => {
     if (!player.controls.enabled || chat.showChatBar) return;
@@ -56,7 +56,7 @@ bindKeys(
 );
 
 // zoom
-bindKeys(
+onKey(
   "x",
   () => {
     if (!player.controls.enabled || chat.showChatBar) return;
@@ -65,7 +65,7 @@ bindKeys(
   },
   { preventDefault: false, handler: "keydown" }
 );
-bindKeys(
+onKey(
   "x",
   () => {
     g.zoomLevel = 3;
@@ -76,7 +76,7 @@ bindKeys(
 );
 
 // respawn
-bindKeys(
+onKey(
   "r",
   (event) => {
     if (!player.controls.enabled || chat.showChatBar || event.repeat) return;
@@ -87,7 +87,7 @@ bindKeys(
 );
 
 // drop
-bindKeys(
+onKey(
   "q",
   (event) => {
     if (!player.controls.enabled || chat.showChatBar || event.repeat) return;
@@ -101,7 +101,7 @@ export function update() {
 }
 
 // open chat
-bindKeys(
+onKey(
   ["enter", "slash"],
   (e) => {
     if (e.repeat) return;
@@ -113,7 +113,7 @@ bindKeys(
   { preventDefault: false, handler: "keydown" }
 );
 
-bindKeys(
+onKey(
   "up",
   () => {
     if (!g.initialized) return;
@@ -126,7 +126,7 @@ bindKeys(
   { preventDefault: false }
 );
 
-bindKeys(
+onKey(
   "down",
   () => {
     if (!g.initialized) return;
@@ -156,7 +156,7 @@ $(window).on("keyup", function (event) {
 
 // Toggle camera mode
 let lastGamemode = undefined;
-bindKeys("f1", (event) => {
+onKey("f1", (event) => {
   if (event.repeat) return;
 
   if (player.mode == "camera" && !player.toggleGUI) return;
@@ -170,14 +170,14 @@ bindKeys("f1", (event) => {
 });
 
 // Take a screenshot
-bindKeys("f2", (event) => {
+onKey("f2", (event) => {
   if (event.repeat) return;
 
   screenshotter.takeScreenshot();
 });
 
 // Toggle stats list
-bindKeys("f3", (event) => {
+onKey("f3", (event) => {
   if (event.repeat) return;
 
   hud.showStats = !hud.showStats;
@@ -187,7 +187,7 @@ bindKeys("f3", (event) => {
 });
 
 // Toggle perspective
-bindKeys("f5", (event) => {
+onKey("f5", (event) => {
   if (event.repeat) return;
 
   player.perspective = (player.perspective + 1) % 3;
@@ -195,7 +195,7 @@ bindKeys("f5", (event) => {
 });
 
 // Toggle debug mode
-bindKeys("f7", (event) => {
+onKey("f7", (event) => {
   if (event.repeat) return;
 
   game.debug = !game.debug;
@@ -207,7 +207,7 @@ bindKeys("f7", (event) => {
 });
 
 // Toggle cinematic mode
-bindKeys("f8", (event) => {
+onKey("f8", (event) => {
   if (event.repeat) return;
 
   event.preventDefault();
@@ -216,7 +216,7 @@ bindKeys("f8", (event) => {
 });
 
 // Toggle fullscreen
-bindKeys("f11", (event) => {
+onKey("f11", (event) => {
   if (event.repeat) return;
 
   event.preventDefault();
